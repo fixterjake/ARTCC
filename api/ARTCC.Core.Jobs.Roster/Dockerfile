@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["./api/ARTCC.Core.Jobs.Roster.csproj", "ARTCC.Core.Jobs.Roster/"]
+COPY ["ARTCC.Core.Jobs.Roster.csproj", "ARTCC.Core.Jobs.Roster/"]
 RUN dotnet restore "ARTCC.Core.Jobs.Roster/ARTCC.Core.Jobs.Roster.csproj"
 
 WORKDIR "/src/ARTCC.Core.Jobs.Roster"

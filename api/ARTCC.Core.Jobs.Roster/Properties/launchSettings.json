@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ARTCC.Core.Jobs.Roster": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

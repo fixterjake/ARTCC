@@ -5,8 +5,8 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["ARTCC.Core.Jobs.Roster/ARTCC.Core.Jobs.Roster.csproj", "ARTCC.Core.Jobs.Roster/"]
-RUN dotnet restore "ARTCC.Core.Jobs.Roster/ARTCC.Core.Jobs.Roster.csproj"
+COPY ["api/ARTCC.Core.Jobs.Roster/ARTCC.Core.Jobs.Roster.csproj", "ARTCC.Core.Jobs.Roster/"]
+RUN dotnet restore "api/ARTCC.Core.Jobs.Roster/ARTCC.Core.Jobs.Roster.csproj"
 COPY . .
 WORKDIR "/src/ARTCC.Core.Jobs.Roster"
 RUN dotnet build "ARTCC.Core.Jobs.Roster.csproj" -c Release -o /app/build

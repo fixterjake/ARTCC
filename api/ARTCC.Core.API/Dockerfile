@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["ARTCC.Core.API/ARTCC.Core.API.csproj", "ARTCC.Core.API/"]
-COPY ["ARTCC.Core.Shared/ARTCC.Core.Shared.csproj", "ARTCC.Core.Shared/"]
-RUN dotnet restore "ARTCC.Core.API/ARTCC.Core.API.csproj"
+COPY ["api/ARTCC.Core.API/ARTCC.Core.API.csproj", "ARTCC.Core.API/"]
+COPY ["api/ARTCC.Core.Shared/ARTCC.Core.Shared.csproj", "ARTCC.Core.Shared/"]
+RUN dotnet restore "api/ARTCC.Core.API/ARTCC.Core.API.csproj"
 COPY . .
 WORKDIR "/src/ARTCC.Core.API"
 RUN dotnet build "ARTCC.Core.API.csproj" -c Release -o /app/build

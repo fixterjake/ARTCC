@@ -19,7 +19,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build images
       run: |
-        cd api
         docker build -t api -f ./api/ARTCC.Core.API/Dockerfile .
     - name: Tag images
       run: | 

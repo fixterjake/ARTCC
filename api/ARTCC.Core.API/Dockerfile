@@ -9,13 +9,13 @@ COPY ["api/ARTCC.Core.API/ARTCC.Core.API.csproj", "ARTCC.Core.API/"]
 COPY ["api/ARTCC.Core.Shared/ARTCC.Core.Shared.csproj", "ARTCC.Core.Shared/"]
 RUN dotnet restore "ARTCC.Core.API/ARTCC.Core.API.csproj"
 COPY . .
-WORKDIR "/src/ARTCC.Core.API"
-RUN dotnet build "/src/ARTCC.Core.API/ARTCC.Core.API.csproj" -c Release -o /app/build
+WORKDIR "/src/src/ARTCC.Core.API"
+RUN dotnet build "ARTCC.Core.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "/src/ARTCC.Core.API/ARTCC.Core.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ARTCC.Core.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "/src/ARTCC.Core.API/ARTCC.Core.API.dll"]
+ENTRYPOINT ["dotnet", "ARTCC.Core.API.dll"]

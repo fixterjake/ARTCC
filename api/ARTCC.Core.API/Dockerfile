@@ -6,7 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
-RUN echo "$PWD"
+RUN dir -s 
 
 COPY ["ARTCC.Core.API/ARTCC.Core.API.csproj", "ARTCC.Core.API/"]
 COPY ["ARTCC.Core.Shared/ARTCC.Core.Shared.csproj", "ARTCC.Core.Shared/"]

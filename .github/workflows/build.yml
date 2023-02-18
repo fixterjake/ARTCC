@@ -15,4 +15,5 @@ jobs:
         docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .
     - name: Build ui image
       run: |
-        docker build -t artcc-ui -f ui/Dockerfile .
+        cd ui
+        docker build -t artcc-ui .

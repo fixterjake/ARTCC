@@ -137,8 +137,6 @@ else
     });
 }
 
-app.UseHttpsRedirection();
-
 app.UseMetricServer();
 app.UseHttpMetrics();
 

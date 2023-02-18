@@ -24,8 +24,7 @@ jobs:
         docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .
     - name: Build ui image
       run: |
-        cd ui
-        docker build -t artcc-ui .
+        docker build -t artcc-ui -f ui/Dockerfile .
     - name: Tag images
       run: | 
         docker tag artcc-api ghcr.io/fixterjake/artcc-api:dev

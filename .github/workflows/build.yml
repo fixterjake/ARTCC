@@ -10,4 +10,5 @@ jobs:
       uses: actions/checkout@v2
     - name: Build images
       run: |
-        cd api && docker build -t api -f ARTCC.Core.API/Dockerfile .
+        cd api && docker build -t artcc-api -f ARTCC.Core.API/Dockerfile .
+        cd api && docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .

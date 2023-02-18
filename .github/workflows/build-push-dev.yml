@@ -20,9 +20,12 @@ jobs:
     - name: Build images
       run: |
         cd api && docker build -t artcc-api -f ARTCC.Core.API/Dockerfile .
+        cd api && docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .
     - name: Tag images
       run: | 
         docker tag artcc-api ghcr.io/fixterjake/artcc-api:dev
+        docker tag artcc-jobs-roster ghcr.io/fixterjake/artcc-jobs-roster:dev
     - name: Push images
       run: |
         docker push ghcr.io/fixterjake/artcc-api:dev
+        docker push ghcr.io/fixterjake/artcc-jobs-roster:dev

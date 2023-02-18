@@ -10,4 +10,4 @@ jobs:
       uses: actions/checkout@v2
     - name: Build images
       run: |
-        docker build -t api -f api/ARTCC.Core.API/Dockerfile .
+        cd api && docker build -t api -f ARTCC.Core.API/Dockerfile .

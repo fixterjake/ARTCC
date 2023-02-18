@@ -19,10 +19,10 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build images
       run: |
-        cd api && docker build -t api -f ARTCC.Core.API/Dockerfile .
+        cd api && docker build -t artcc-api -f ARTCC.Core.API/Dockerfile .
     - name: Tag images
       run: | 
-        docker tag api ghcr.io/fixterjake/api:latest
+        docker tag artcc-api ghcr.io/fixterjake/artcc-api:latest
     - name: Push images
       run: |
-        docker push ghcr.io/fixterjake/api:latest
+        docker push ghcr.io/fixterjake/artcc-api:latest

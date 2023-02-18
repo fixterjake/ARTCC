@@ -124,6 +124,13 @@ builder.Services.AddScoped<FaqRepository>();
 
 var app = builder.Build();
 
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    using var context = serviceScope.ServiceProvider.GetService<DatabaseContext>();
+    if (context != null && context.Database.GetMigrations().Any())
+        context.Database.Migrate();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -17,16 +17,22 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build images
+    - name: Build api images
       run: |
         cd api
         docker build -t artcc-api -f ARTCC.Core.API/Dockerfile .
         docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .
+    - name: Build ui image
+      run: |
+        cd ui
+        docker build -t artcc-ui .
     - name: Tag images
       run: | 
         docker tag artcc-api ghcr.io/fixterjake/artcc-api:latest
         docker tag artcc-jobs-roster ghcr.io/fixterjake/artcc-jobs-roster:latest
+        docker tag artcc-ui ghcr.io/fixterjake/artcc-ui:latest
     - name: Push images
       run: |
         docker push ghcr.io/fixterjake/artcc-api:latest
         docker push ghcr.io/fixterjake/artcc-jobs-roster:latest
+        docker push ghcr.io/fixterjake/artcc-ui:latest

@@ -8,8 +8,12 @@ jobs:
     steps:
     - name: Checkout the repo 
       uses: actions/checkout@v2
-    - name: Build images
+    - name: Build api images
       run: |
         cd api
         docker build -t artcc-api -f ARTCC.Core.API/Dockerfile .
         docker build -t artcc-jobs-roster -f ARTCC.Core.Jobs.Roster/Dockerfile .
+    - name: Build ui image
+      run: |
+        cd ui
+        docker build -t artcc-ui .

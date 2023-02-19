@@ -41,10 +41,10 @@ jobs:
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: -n artcc-dev rollout restart api-dev
+        args: -n artcc-dev rollout restart deployment api-dev
     - name: Restart ui
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: -n artcc-dev rollout restart ui-dev
+        args: -n artcc-dev rollout restart deployment ui-dev

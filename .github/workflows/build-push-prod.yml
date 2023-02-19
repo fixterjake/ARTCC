@@ -36,3 +36,15 @@ jobs:
         docker push ghcr.io/fixterjake/artcc-api:latest
         docker push ghcr.io/fixterjake/artcc-jobs-roster:latest
         docker push ghcr.io/fixterjake/artcc-ui:latest
+    - name: Restart api
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: -n artcc-prod rollout restart deployment api-prod
+    - name: Restart ui
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: -n artcc-prod rollout restart deployment ui-prod

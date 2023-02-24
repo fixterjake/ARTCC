@@ -61,6 +61,9 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Permission>().HasData(new Permission { Id = 18, Roles = new List<Role>(), Value = Constants.PERMISSION_UPDATE_FAQ });
         modelBuilder.Entity<Permission>().HasData(new Permission { Id = 19, Roles = new List<Role>(), Value = Constants.PERMISSION_DELETE_FAQ });
 
+        modelBuilder.Entity<Permission>().HasData(new Permission { Id = 20, Roles = new List<Role>(), Value = Constants.PERMISSION_VIEW_TRAINING_MANAGEMENT });
+        modelBuilder.Entity<Permission>().HasData(new Permission { Id = 21, Roles = new List<Role>(), Value = Constants.PERMISSION_VIEW_ARTCC_MANAGEMENT });
+
         modelBuilder.Entity<Role>().HasData(new Role
         {
             Id = 1,

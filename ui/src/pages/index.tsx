@@ -1,15 +1,6 @@
-import { getPermissions } from "@/services/AuthService";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-
-    const [permissions, setPermissions] = useState<string[]>([]);
-
-    useEffect(() => {
-        setPermissions(getPermissions() || []);
-    }, []);
-
     return (
         <>
             <Head>
@@ -19,11 +10,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="mt-24">
-                <ul>
-                    {permissions?.map((permission, index) => (
-                        <li key={index}>{permission}</li>
-                    ))}
-                </ul>
+                <h1 className="text-4xl font-bold">Home</h1>
             </div>
         </>
     );

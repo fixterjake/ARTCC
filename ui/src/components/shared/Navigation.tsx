@@ -1,24 +1,18 @@
-import { getFullName, getPermissions, getToken } from "@/services/AuthService";
+import { getToken } from "@/services/AuthService";
 import Link from "next/link";
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import navImage from "../../../public/images/nav.png";
 import { Menu, Transition } from "@headlessui/react";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 const Navigation = () => {
 
-    const [loggedIn, setLoggedIn] = useAuthContext();
-    const [name, setName] = useState("");
-    const [permissions, setPermissions] = useState<string[]>([]);
+    const [loggedIn, setLoggedIn, user] = useAuthContext();
 
     useEffect(() => {
         if (getToken())
-        {
             setLoggedIn(true);
-            setName(getFullName() || "Name");
-            setPermissions(getPermissions() || []);
-        }
     }, [setLoggedIn]);
 
     return (
@@ -32,7 +26,7 @@ const Navigation = () => {
                         <div>
                             <Menu>
                                 <Menu.Button className="mx-4 text-xl font-bold text-white">
-                                About
+                                    About
                                 </Menu.Button>
                                 <Transition
                                     as={Fragment}
@@ -46,16 +40,19 @@ const Navigation = () => {
                                     <Menu.Items className="absolute mt-4 bg-gray-600 rounded-md">
                                         <div className="text-lg min-w-[9rem]">
                                             <Menu.Item>
-                                                <Link href="/staff" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Staff</Link>
+                                                <Link href="/about/staff" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Staff</Link>
                                             </Menu.Item>
                                             <Menu.Item>
-                                                <Link href="/news" className="block p-2 mb-1 rounded-md hover:bg-gray-500">News</Link>
+                                                <Link href="/about/roster" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Roster</Link>
                                             </Menu.Item>
                                             <Menu.Item>
-                                                <Link href="/faq" className="block p-2 rounded-md hover:bg-gray-500">FAQ</Link>
+                                                <Link href="/about/news" className="block p-2 mb-1 rounded-md hover:bg-gray-500">News</Link>
                                             </Menu.Item>
                                             <Menu.Item>
-                                                <Link href="/privacy" className="block p-2 rounded-md hover:bg-gray-500">Privacy Policy</Link>
+                                                <Link href="/about/faq" className="block p-2 rounded-md hover:bg-gray-500">FAQ</Link>
+                                            </Menu.Item>
+                                            <Menu.Item>
+                                                <Link href="/about/privacy" className="block p-2 rounded-md hover:bg-gray-500">Privacy Policy</Link>
                                             </Menu.Item>
                                         </div>
                                     </Menu.Items>
@@ -65,7 +62,7 @@ const Navigation = () => {
                         <div>
                             <Menu>
                                 <Menu.Button className="mx-4 text-xl font-bold text-white">
-                                Pilots
+                                    Pilots
                                 </Menu.Button>
                                 <Transition
                                     as={Fragment}
@@ -79,10 +76,10 @@ const Navigation = () => {
                                     <Menu.Items className="absolute mt-4 bg-gray-600 rounded-md">
                                         <div className="text-lg min-w-[9rem]">
                                             <Menu.Item>
-                                                <Link href="/feedback" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Feedback</Link>
+                                                <Link href="/pilots/feedback" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Feedback</Link>
                                             </Menu.Item>
                                             <Menu.Item>
-                                                <Link href="/airports" className="block p-2 rounded-md hover:bg-gray-500">Airports</Link>
+                                                <Link href="/pilots/airports" className="block p-2 rounded-md hover:bg-gray-500">Airports</Link>
                                             </Menu.Item>
                                         </div>
                                     </Menu.Items>
@@ -92,7 +89,7 @@ const Navigation = () => {
                         <div>
                             <Menu>
                                 <Menu.Button className="mx-4 text-xl font-bold text-white">
-                                Controllers
+                                    Controllers
                                 </Menu.Button>
                                 <Transition
                                     as={Fragment}
@@ -106,17 +103,14 @@ const Navigation = () => {
                                     <Menu.Items className="absolute mt-4 bg-gray-600 rounded-md">
                                         <div className="text-lg min-w-[9rem]">
                                             <Menu.Item>
-                                                <Link href="/roster" className="block p-2 mb-1 rounded-md hover:bg-gray-500">Roster</Link>
+                                                <Link href="/controllers/events" className="block p-2 rounded-md hover:bg-gray-500">Events</Link>
                                             </Menu.Item>
                                             <Menu.Item>
-                                                <Link href="/events" className="block p-2 rounded-md hover:bg-gray-500">Events</Link>
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                <Link href="/visit" className="block p-2 rounded-md hover:bg-gray-500">Apply to Visit</Link>
+                                                <Link href="/controllers/visit" className="block p-2 rounded-md hover:bg-gray-500">Apply to Visit</Link>
                                             </Menu.Item>
                                             {loggedIn ? (
                                                 <Menu.Item>
-                                                    <Link href="/trainingrequest" className="block p-2 rounded-md hover:bg-gray-500">Request Training</Link>
+                                                    <Link href="/controllers/trainingrequest" className="block p-2 rounded-md hover:bg-gray-500">Request Training</Link>
                                                 </Menu.Item>
                                             ) : (<></>)}
                                         </div>
@@ -125,7 +119,7 @@ const Navigation = () => {
                             </Menu>
                         </div>
                         {
-                            permissions.includes("VIEW.TRAINING.MANAGEMENT") ? (
+                            loggedIn && user.permissions.includes("VIEW.TRAINING.MANAGEMENT") ? (
                                 <Menu>
                                     <Menu.Button className="mx-4 text-xl font-bold text-white">
                                         Training Management
@@ -134,7 +128,7 @@ const Navigation = () => {
                             ) : (<></>)
                         }
                         {
-                            permissions.includes("VIEW.ARTCC.MANAGEMENT") ? (
+                            loggedIn && user.permissions.includes("VIEW.ARTCC.MANAGEMENT") ? (
                                 <Menu>
                                     <Menu.Button className="mx-4 text-xl font-bold text-white">
                                         ARTCC Management
@@ -148,7 +142,7 @@ const Navigation = () => {
                             <div>
                                 <Menu>
                                     <Menu.Button className="mx-4 text-xl font-bold text-white">
-                                        {name}
+                                        {user.firstName} {user.lastName}
                                     </Menu.Button>
                                     <Transition
                                         as={Fragment}

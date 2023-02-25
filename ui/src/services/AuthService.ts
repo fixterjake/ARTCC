@@ -1,4 +1,4 @@
-import { ApiToken } from "@/models/Auth";
+import { ApiToken, User } from "@/models/Auth";
 
 export async function sendCodeCallback(code: string): Promise<Response> {
     return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Auth/login/callback`, {
@@ -34,97 +34,34 @@ export function getToken(): string | null {
     return localStorage.getItem("accessToken");
 }
 
+export function setToken(token: string): void {
+    localStorage.setItem("accessToken", token);
+}
+
+export function deleteToken(): void {
+    localStorage.removeItem("accessToken");
+}
+
 export function isLoggedIn(): boolean {
     const token = getToken();
     return !!token;
 }
 
-export function getCid(): number | null {
+export function getUser(): User | null {
     const token = getToken();
     if (!token)
         return null;
     const parsed = parseJwt(token);
     if (!parsed)
         return null;
-    return parsed.cid;
-}
-
-export function getEmail(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.email;
-}
-
-export function getFirstName(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.givenname;
-}
-
-export function getLastName(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.surname;
-}
-
-export function getFullName(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return `${parsed.givenname} ${parsed.surname}`;
-}
-
-export function getRating(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.rating;
-}
-
-export function getRatingInt(): number | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.ratingInt;
-}
-
-export function getDivision(): string | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.division;
-}
-
-export function getPermissions(): string[] | null {
-    const token = getToken();
-    if (!token)
-        return null;
-    const parsed = parseJwt(token);
-    if (!parsed)
-        return null;
-    return parsed.roles.sort();
+    return {
+        cid: parsed.cid || 0,
+        email: parsed.email || "",
+        firstName: parsed.givenname || "",
+        lastName: parsed.surname || "",
+        rating: parsed.rating || "",
+        ratingInt: parsed.ratingInt || 0,
+        division: parsed.division || "",
+        permissions: parsed.roles.sort() || []
+    };
 }

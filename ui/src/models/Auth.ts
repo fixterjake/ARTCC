@@ -14,3 +14,14 @@ export type ApiToken = {
     iss: string;
     aud: string;
 }
+
+export type User = {
+    cid: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    rating: string;
+    ratingInt: number;
+    division: string;
+    permissions: string[];
+}

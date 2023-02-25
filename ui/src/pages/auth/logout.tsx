@@ -1,5 +1,5 @@
 import { useAuthContext } from "@/contexts/AuthContext";
-import { sendLogout } from "@/services/AuthService";
+import { deleteToken, sendLogout } from "@/services/AuthService";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -13,7 +13,7 @@ export default function AuthLogout() {
         if (loggedIn)
             sendLogout().then(() => {
                 setLoggedIn(false);
-                localStorage.removeItem("accessToken");
+                deleteToken();
                 router.push("/");
             });
     }, [loggedIn, setLoggedIn, router]);

@@ -1,8 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
-* {
-    font-family: "Ubuntu", sans-serif;
+body {
+    background-color: #8e9299;
 }

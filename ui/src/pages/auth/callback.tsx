@@ -1,4 +1,4 @@
-import { sendCodeCallback } from "@/services/AuthService";
+import { sendCodeCallback, setToken } from "@/services/AuthService";
 import { NextPageContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -12,7 +12,7 @@ export default function AuthCallback({ accessToken }: AuthCallbackProps) {
     const router = useRouter();
 
     useEffect(() => {
-        localStorage.setItem("accessToken", accessToken);
+        setToken(accessToken);
         router.push("/");
     }, [accessToken, router]);
 
